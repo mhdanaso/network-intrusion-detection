@@ -1,0 +1,48 @@
+# ===== Data Files =====
+data/raw/
+data/processed/
+*.csv
+*.arff
+*.data
+
+# ===== Trained Models =====
+models/*.pkl
+models/*.joblib
+models/*.h5
+models/*.keras
+models/*.pt
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ===== Virtual Environment =====
+venv/
+env/
+.venv/
+.env
+
+# ===== Jupyter Notebooks =====
+.ipynb_checkpoints/
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Misc =====
+*.log
+*.tmp
