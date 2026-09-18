@@ -1,0 +1,30 @@
+NSL-KDD EDA Summary
+===================
+
+Shape: (125973, 44)
+Duplicate rows: 0
+Missing values: 0
+
+Binary label distribution:
+binary_label
+0    67343
+1    58630
+
+Attack category distribution:
+attack_category
+Normal    67343
+DoS       45927
+Probe     11656
+R2L         995
+U2R          52
+
+Protocol type distribution:
+protocol_type
+tcp     102689
+udp      14993
+icmp      8291
+
+Dataset notes:
+- The dataset has no missing values.
+- Binary labels are roughly balanced, but attack subcategories are imbalanced.
+- TCP dominates the protocol distribution, and HTTP/private are the most common services.
