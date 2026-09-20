@@ -15,7 +15,8 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
+from sklearn.svm import LinearSVC
+from sklearn.calibration import CalibratedClassifierCV
 from sklearn.neighbors import KNeighborsClassifier
 from xgboost import XGBClassifier
 
@@ -60,11 +61,16 @@ def get_models(task: str = "binary") -> dict:
             use_label_encoder=False,
             eval_metric="logloss" if task == "binary" else "mlogloss",
         ),
-        "SVM": SVC(
-            kernel="rbf",
-            random_state=42,
-            probability=True,  # Needed for ROC-AUC
-            class_weight="balanced",
+        # LinearSVC is much faster than RBF SVM on large datasets.
+        # CalibratedClassifierCV wraps it to provide predict_proba
+        # (needed for ROC-AUC calculation).
+        "SVM": CalibratedClassifierCV(
+            LinearSVC(
+                random_state=42,
+                max_iter=2000,
+                class_weight="balanced",
+            ),
+            cv=3,
         ),
         "KNN": KNeighborsClassifier(
             n_neighbors=5,
