@@ -63,7 +63,26 @@ jupyter notebook
 
 ### Run Dashboard
 ```bash
+# Train models first (this creates the model artifacts used by the dashboard)
+python -m src.train --task both
+
+# Start the dashboard from the project root
 streamlit run app/app.py
+```
+
+The dashboard displays the saved evaluation results and accepts headered CSV files
+containing the 41 NSL-KDD feature columns. Predictions are processed in batches
+(2,000 rows by default); reduce the batch size in the dashboard to lower inference
+memory usage. The original input columns are included in the downloadable results,
+along with predicted labels and, when available, prediction confidence.
+
+The dashboard is for NSL-KDD-compatible benchmark data, not a live network sensor.
+Streamlit keeps uploaded files in memory, so configure its upload limit appropriately
+for your deployment and available memory.
+
+### Run Tests
+```bash
+python -m unittest discover -s tests -v
 ```
 
 ---

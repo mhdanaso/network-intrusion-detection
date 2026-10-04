@@ -14,6 +14,7 @@ Usage:
 import joblib
 import numpy as np
 import pandas as pd
+from collections.abc import Iterable, Iterator
 from src.data_loader import COLUMN_NAMES, CATEGORICAL_FEATURES, NUMERIC_FEATURES
 
 
@@ -86,6 +87,30 @@ class NetworkIntrusionPredictor:
             "predictions": predictions.tolist(),
             "probabilities": probabilities.tolist() if probabilities is not None else None,
         }
+
+    def predict_batches(
+        self,
+        input_batches: Iterable[pd.DataFrame],
+    ) -> Iterator[pd.DataFrame]:
+        """Yield prediction results one input batch at a time."""
+        for input_data in input_batches:
+            if (
+                "predicted_label" in input_data
+                or "prediction_confidence" in input_data
+            ):
+                raise ValueError(
+                    "Input data contains a reserved output column: "
+                    "'predicted_label' or 'prediction_confidence'."
+                )
+
+            result = self.predict(input_data)
+            output = input_data.copy()
+            output["predicted_label"] = result["predictions"]
+            if result["probabilities"] is not None:
+                probabilities = np.asarray(result["probabilities"])
+                output["prediction_confidence"] = probabilities.max(axis=1)
+
+            yield output
 
     def predict_single(self, features: dict) -> dict:
         """
