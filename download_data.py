@@ -86,7 +86,7 @@ def main():
     print("\n" + "=" * 60)
     print("  Download complete!")
     print("=" * 60)
-    print("\nNext step: Run notebooks/01_eda.ipynb to explore the data.")
+    print("\nNext step: Run 'python notebooks/01_eda.py' to explore the data.")
 
 
 if __name__ == "__main__":

@@ -40,7 +40,7 @@ Network Intrusion Detection Systems (NIDS) are critical for identifying maliciou
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/network-intrusion-detection.git
+git clone https://github.com/mhdanaso/network-intrusion-detection.git
 cd network-intrusion-detection
 
 # Create virtual environment
@@ -55,11 +55,19 @@ pip install -r requirements.txt
 python download_data.py
 ```
 
-### Run Notebooks
+### Run the experiment scripts
 ```bash
-jupyter notebook
-# Open notebooks in order: 01_eda → 02_preprocessing → 03_modeling → 04_deep_learning
+# Run these from the project root, after downloading the dataset:
+python notebooks/01_eda.py
+python notebooks/02_preprocessing.py
+python notebooks/03_modeling.py
+python notebooks/04_deep_learning.py
 ```
+
+The scripts run the same stages as the original notebook workflow:
+exploratory analysis, preprocessing, traditional ML modeling, and deep learning.
+They save generated figures under `reports/figures/`. The full training scripts
+can take several minutes, especially for SVM and deep learning.
 
 ### Run Dashboard
 ```bash
@@ -80,10 +88,23 @@ The dashboard is for NSL-KDD-compatible benchmark data, not a live network senso
 Streamlit keeps uploaded files in memory, so configure its upload limit appropriately
 for your deployment and available memory.
 
+### Input CSV format
+
+The prediction page accepts a headered CSV containing the 41 NSL-KDD feature
+columns. The required header and one valid example row are provided in
+[`examples/sample_input.csv`](examples/sample_input.csv). The CSV may include
+additional columns; they are preserved in the downloaded output. Do not include
+`predicted_label` or `prediction_confidence`, because those names are reserved
+for generated output columns.
+
 ### Run Tests
 ```bash
 python -m unittest discover -s tests -v
 ```
+
+To validate a fresh clone without downloading or retraining models, run the
+test command above. The tests use small in-memory fixtures and do not require
+the NSL-KDD dataset or saved model artifacts.
 
 ---
 
@@ -93,11 +114,13 @@ python -m unittest discover -s tests -v
 ├── data/
 │   ├── raw/                    # Original NSL-KDD dataset
 │   └── processed/              # Cleaned & engineered features
+├── examples/
+│   └── sample_input.csv        # Valid dashboard input example
 ├── notebooks/
-│   ├── 01_eda.ipynb            # Exploratory Data Analysis
-│   ├── 02_preprocessing.ipynb  # Data cleaning & feature engineering
-│   ├── 03_modeling.ipynb       # Model training & evaluation
-│   └── 04_deep_learning.ipynb  # Neural network experiments
+│   ├── 01_eda.py               # Exploratory Data Analysis
+│   ├── 02_preprocessing.py     # Data cleaning & feature engineering
+│   ├── 03_modeling.py          # Model training & evaluation
+│   └── 04_deep_learning.py     # Neural network experiments
 ├── src/
 │   ├── data_loader.py          # Dataset loading utilities
 │   ├── preprocessing.py        # Feature engineering pipeline
@@ -109,6 +132,7 @@ python -m unittest discover -s tests -v
 ├── models/                     # Saved trained models
 ├── reports/figures/             # Generated plots
 ├── requirements.txt
+├── LICENSE
 └── README.md
 ```
 
@@ -183,9 +207,7 @@ python -m unittest discover -s tests -v
 
 ## 👥 Contributors
 
-<!-- Add your names and GitHub profiles -->
-- **Person A** — Data pipeline, EDA, preprocessing, documentation
-- **Person B** — Model training, evaluation, deep learning, dashboard
+Contributions and improvements are welcome through GitHub pull requests.
 
 ---
 

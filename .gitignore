@@ -4,6 +4,7 @@ data/processed/
 *.csv
 *.arff
 *.data
+!examples/sample_input.csv
 
 # ===== Trained Models =====
 models/*.pkl
