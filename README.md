@@ -141,13 +141,31 @@ python -m unittest discover -s tests -v
 
 ## 📈 Results
 
-> *Results will be added after model training is complete.*
+### Binary Classification (Normal vs Attack)
 
-<!-- 
 | Model | Accuracy | F1-Score | ROC-AUC | Training Time |
 |-------|----------|----------|---------|---------------|
-| ... | ... | ... | ... | ... |
--->
+| **Decision Tree** | 0.7915 | **0.7899** | 0.8133 | 6.48s |
+| XGBoost | 0.7864 | 0.7844 | **0.9646** | 5.25s |
+| KNN | 0.7803 | 0.7778 | 0.8274 | 0.05s |
+| Random Forest | 0.7724 | 0.7693 | 0.9605 | 10.92s |
+| Logistic Regression | 0.7540 | 0.7521 | 0.7921 | 12.59s |
+| SVM | 0.7498 | 0.7476 | 0.7893 | 82.07s |
+
+> 🏆 **Best Binary Model**: Decision Tree (F1 = 0.7899)
+
+### Multi-class Classification (5 Attack Categories)
+
+| Model | Accuracy | F1-Score | ROC-AUC | Training Time |
+|-------|----------|----------|---------|---------------|
+| **XGBoost** | 0.7787 | **0.7421** | **0.9506** | 18.34s |
+| Decision Tree | 0.7685 | 0.7332 | 0.6494 | 5.23s |
+| KNN | 0.7660 | 0.7212 | 0.7414 | 0.04s |
+| Logistic Regression | 0.7613 | 0.7167 | 0.8794 | 39.09s |
+| Random Forest | 0.7468 | 0.6986 | 0.8782 | 6.95s |
+| SVM | 0.7357 | 0.6886 | 0.8479 | 549.79s |
+
+> 🏆 **Best Multi-class Model**: XGBoost (F1 = 0.7421)
 
 ---
 
